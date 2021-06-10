@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+<!-- É necessário ajustar as 2 linhas abaixo para utilizar o model "User" ao invés de "IdentityUser" visto que saímos do padrão -->
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!-- Caso o usuário esteja logado vai ser adaptado a view _Layout -->
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            <text class="text-white">Hi, @UserManager.GetUserName(User) - </text>
+            <a class="btn btn-link navbar-btn navbar-link" asp-controller="Users" asp-action="Logout">Logout</a>
+        </li>
+    </ul>
+}
