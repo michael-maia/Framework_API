@@ -9,6 +9,7 @@ namespace Framework_API.Models
     public class Role : IdentityRole
     {
         public string Name { get; set; }
-        public ICollection<User> User { get; set; }
+        // Chave estrangeira
+        public ICollection<User> Users { get; set; }
     }
 }

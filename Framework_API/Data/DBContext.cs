@@ -1,4 +1,5 @@
 ﻿using Framework_API.Models;
+using Framework_API.Models.Map;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,9 +17,18 @@ namespace Framework_API.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Rent> Rents { get; set; }
 
-        public DBContext(DbContextOptions<DBContext> options)
-            : base(options)
+        public DBContext(DbContextOptions<DBContext> options) : base(options){}
+
+        // Estamos definindo as classes a serem consideradas para mapeamento
+        protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new UserMap());
+            builder.ApplyConfiguration(new RoleMap());
+            builder.ApplyConfiguration(new BookMap());
+            builder.ApplyConfiguration(new RentMap());
+            builder.ApplyConfiguration(new AccountMap());
         }
     }
 }
