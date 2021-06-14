@@ -15,7 +15,9 @@ namespace Framework_API.Models
         public string Email { get; set; }
         public string CPF { get; set; }
         public string Password { get; set; }
-        public ICollection<BookRental> Rentals { get; set; }
+        
+        // Chaves estrangeiras
+        public ICollection<Rent> Rents { get; set; }
         public Role Role { get; set; }
     }
 }
