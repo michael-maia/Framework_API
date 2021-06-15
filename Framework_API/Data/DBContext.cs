@@ -27,8 +27,7 @@ namespace Framework_API.Data
             builder.ApplyConfiguration(new UserMap());
             builder.ApplyConfiguration(new RoleMap());
             builder.ApplyConfiguration(new BookMap());
-            builder.ApplyConfiguration(new RentMap());
-            builder.ApplyConfiguration(new AccountMap());
+            builder.ApplyConfiguration(new RentMap());            
         }
     }
 }

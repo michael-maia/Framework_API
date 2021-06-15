@@ -36,7 +36,8 @@ namespace Framework_API.Models.Map
             builder.HasMany(u => u.Rents).WithOne(u => u.User);
             // Em uma relação 1-N não precisamos identificar a entidade dependente no HasForeignKey (https://docs.microsoft.com/pt-br/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key#one-to-one)
             builder.HasOne(u => u.Role).WithMany(u => u.Users).HasForeignKey(u => u.RoleId);
-            builder.HasOne(u => u.Account).WithOne(u => u.User);
+            // Ao definir uma chave estrangeira 1-1 é necessário especificar a entidade dependente no HasForeignKey
+            builder.HasOne(u => u.Account).WithOne(u => u.User).HasForeignKey<Account>(u => u.UserId);
         }
     }
 }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Framework_API.Models
 {
     public class User : IdentityUser
-    {        
+    {
+        public int Id { get; set; }
         public string FullName { get; set; }
         public string City { get; set; }
         public string State { get; set; }
@@ -19,9 +20,10 @@ namespace Framework_API.Models
 
         // Chaves estrangeiras
         public ICollection<Rent> Rents { get; set; }
+
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public int AccountId { get; set; }
+        
         public Account Account { get; set; }
     }
 }

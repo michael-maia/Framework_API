@@ -14,6 +14,8 @@ namespace Framework_API.Models
         {
             // Definindo as configurações das propriedades para o banco de dados
             builder.Property(u => u.Name).IsRequired().HasMaxLength(20);
+
+            builder.HasMany(r => r.Users).WithOne(r => r.Role);
         }
     }
 }
