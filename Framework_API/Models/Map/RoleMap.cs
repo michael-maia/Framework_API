@@ -12,10 +12,8 @@ namespace Framework_API.Models
         // Mapeamento da classe Role
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            // Definindo as configurações das propriedades para o banco de dados
-            builder.Property(u => u.Name).IsRequired().HasMaxLength(20);
-
-            builder.HasMany(r => r.Users).WithOne(r => r.Role);
+            // Definindo as configurações das propriedades para o banco de dados            
+            builder.Property(r => r.Description).IsRequired().HasMaxLength(400);            
         }
     }
 }

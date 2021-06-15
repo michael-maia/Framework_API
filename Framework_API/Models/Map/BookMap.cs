@@ -12,6 +12,7 @@ namespace Framework_API.Models.Map
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             // Definindo as configurações das propriedades para o banco de dados
+            builder.HasKey(b => b.BookId);
             builder.Property(b => b.Title).IsRequired().HasMaxLength(200);
             builder.Property(b => b.AuthorFullName).IsRequired().HasMaxLength(100);
             builder.Property(b => b.Edition).IsRequired();

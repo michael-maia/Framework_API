@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Models
 {
-    public class User : IdentityUser<int>
-    {
-        public int Id { get; set; }
+    public class User : IdentityUser
+    {        
         public string FullName { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
         public string CPF { get; set; }
         public string Password { get; set; }
         public bool Gender { get; set; }
 
         // Chaves estrangeiras
-        public ICollection<Rent> Rents { get; set; }
-
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public ICollection<Rent> Rents { get; set; }       
         
         public Account Account { get; set; }
     }

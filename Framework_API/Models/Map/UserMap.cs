@@ -16,8 +16,8 @@ namespace Framework_API.Models.Map
             builder.Property(u => u.City).IsRequired();
             builder.Property(u => u.State).IsRequired();
             builder.Property(u => u.BirthDate).IsRequired();
-            builder.Property(u => u.Email).IsRequired().HasMaxLength(100);
-            builder.HasIndex(u => u.Email).IsUnique();
+            builder.Property(u => u.UserEmail).IsRequired().HasMaxLength(100);
+            builder.HasIndex(u => u.UserEmail).IsUnique();
             builder.Property(u => u.CPF).IsRequired().HasMaxLength(11);
             builder.HasIndex(u => u.CPF).IsUnique();
             builder.Property(u => u.Password).IsRequired().HasMaxLength(20);
@@ -34,10 +34,8 @@ namespace Framework_API.Models.Map
 
             // Declarando as relações entre entidades
             builder.HasMany(u => u.Rents).WithOne(u => u.User);
-            // Em uma relação 1-N não precisamos identificar a entidade dependente no HasForeignKey (https://docs.microsoft.com/pt-br/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key#one-to-one)
-            builder.HasOne(u => u.Role).WithMany(u => u.Users).HasForeignKey(u => u.RoleId);
             // Ao definir uma chave estrangeira 1-1 é necessário especificar a entidade dependente no HasForeignKey
-            builder.HasOne(u => u.Account).WithOne(u => u.User).HasForeignKey<Account>(u => u.UserId);
+            builder.HasOne(u => u.Account).WithOne(u => u.User);
         }
     }
 }

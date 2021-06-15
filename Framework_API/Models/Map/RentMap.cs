@@ -12,6 +12,7 @@ namespace Framework_API.Models.Map
         public void Configure(EntityTypeBuilder<Rent> builder)
         {
             // Definindo as configurações das propriedades para o banco de dados
+            builder.HasKey(r => r.RentId);
             builder.Property(r => r.StartDate).IsRequired();
             builder.Property(r => r.EndDate).IsRequired();
 
