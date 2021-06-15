@@ -11,7 +11,7 @@ namespace Framework_API.Models.Map
     {        
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            // Definindo as configurações das propriedades para o banco de dados
+            // Definindo as configurações das propriedades para o banco de dados            
             builder.Property(u => u.FullName).IsRequired().HasMaxLength(100);
             builder.Property(u => u.City).IsRequired();
             builder.Property(u => u.State).IsRequired();

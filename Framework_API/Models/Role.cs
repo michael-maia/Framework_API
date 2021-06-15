@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Models
 {
-    public class Role : IdentityRole
+    public class Role : IdentityRole<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }

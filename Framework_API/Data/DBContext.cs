@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Framework_API.Data
 {
-    public class DBContext : IdentityDbContext<User, Role, string>
+    public class DBContext : IdentityDbContext<User, Role, int>
     {
         // Entidades a serem criadas no DB
         public DbSet<User> Users { get; set; }
