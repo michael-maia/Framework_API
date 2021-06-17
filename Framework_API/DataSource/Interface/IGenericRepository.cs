@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.DataSource.Interface
 {
-    interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         IQueryable<TEntity> FetchAll();
         Task<TEntity> FetchById(int id);

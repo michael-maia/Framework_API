@@ -1,4 +1,6 @@
 using Framework_API.Data;
+using Framework_API.DataSource.Interface;
+using Framework_API.DataSource.Repository;
 using Framework_API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +57,8 @@ namespace Framework_API
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
             });
+
+            services.AddScoped<IRoleRepository, RoleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

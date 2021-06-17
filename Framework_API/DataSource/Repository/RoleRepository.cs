@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Framework_API.DataSource.Repository
 {   
-    public class IRoleRepository : GenericRepository<Role>, IRole
+    public class RoleRepository : GenericRepository<Role>, Interface.IRoleRepository
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly DBContext _context;
 
-        public IRoleRepository(DBContext context, RoleManager<Role> roleManager) : base(context)
+        public RoleRepository(DBContext context, RoleManager<Role> roleManager) : base(context)
         {
             _context = context;
             _roleManager = roleManager;

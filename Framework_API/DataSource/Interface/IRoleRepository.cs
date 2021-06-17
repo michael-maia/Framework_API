@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.DataSource.Interface
 {
-    interface IRole : IGenericRepository<Role>
+    public interface IRoleRepository : IGenericRepository<Role>
     {
         Task<bool> RoleExist(string role);
     }
