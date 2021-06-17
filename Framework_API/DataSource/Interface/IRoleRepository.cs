@@ -9,5 +9,6 @@ namespace Framework_API.DataSource.Interface
     public interface IRoleRepository : IGenericRepository<Role>
     {
         Task<bool> RoleExist(string role);
+        Task Update(Role role);
     }
 }

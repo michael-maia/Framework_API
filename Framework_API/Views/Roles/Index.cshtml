@@ -1,53 +1,77 @@
 ﻿@model IEnumerable<Framework_API.Models.Role>
 
 @{
-    ViewData["Title"] = "Index";
-}
+    ViewData["Title"] = "Roles List";
 
-<h1>Index</h1>
+    // Para poder reaproveitar as funcionalidades do Controller
+    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+}
 
 <p>
-    <a asp-action="Create">Create New</a>
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NormalizedName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConcurrencyStamp)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NormalizedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+<div class="border border-light rounded shadow">
+    <div class="container">
+        <h3 class="title">
+            <i class="fas fa-user-lock fa-lg"></i> Roles &nbsp;
+            <a asp-action="Create" class="btn btn-outline-secondary btn-lg" data-toggle="tooltip" data-placement="right" title="New Role"><i class="fas fa-plus-circle fa-lg"></i></a>
+        </h3>
+        <table class="table table-striped table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Update"></a> &nbsp;
+                            <a class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Remove" onclick="ConfirmRemove('@item.Id', '@item.Name', '@controller')"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<partial name="_ModalRemove" />
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+        function ConfirmRemove(id, name, controller) {
+            $(".Name").html(name);
+            $(".modal").modal("show");
+            $(".btnRemove").on('click', function () {
+                var url = "/" + controller + "/Delete/";
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: { id: id },
+                    success: function () {
+                        alert("Register removed");
+                        location.reload();
+                    }
+                })
+            })
+        }
+    </script>
 }
-    </tbody>
-</table>

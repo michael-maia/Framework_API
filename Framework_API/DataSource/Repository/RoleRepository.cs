@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.DataSource.Repository
 {   
-    public class RoleRepository : GenericRepository<Role>, Interface.IRoleRepository
+    public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly DBContext _context;
@@ -26,6 +26,15 @@ namespace Framework_API.DataSource.Repository
         public async Task<bool> RoleExist(string role)
         {
             return await _roleManager.RoleExistsAsync(role);
+        }
+
+        public async Task Update(Role role)
+        {
+            var nv = await _context.Roles.FindAsync(role.Id);
+            nv.Name = role.Name;
+            nv.NormalizedName = role.NormalizedName;
+            nv.Description = role.Description;
+            await _roleManager.UpdateAsync(nv);
         }
     }
 }

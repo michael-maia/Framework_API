@@ -113,6 +113,7 @@ namespace Framework_API.Controllers
 
             if (ModelState.IsValid)
             {
+                role.NormalizedName = role.Name.ToUpper();
                 await _roleRepository.Update(role);
                 _logger.LogInformation("Role updated");
                 return RedirectToAction("Index","Roles");
