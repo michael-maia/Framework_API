@@ -1,0 +1,100 @@
+﻿@model Framework_API.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "User Registration";
+}
+
+<div class="border border-light rounded shadow col-md-8">
+    <div class="container">
+        <h3 class="title"><i class="fas fa-user"></i>Register New Users</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="Register">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control form-control-lg" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control form-control-lg" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="State" class="control-label"></label>
+                            <input asp-for="State" class="form-control form-control-lg" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="BirthDate" class="control-label">Full Name</label>
+                            <input asp-for="BirthDate" class="form-control form-control-lg" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control form-control-lg cpf" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control form-control-lg phone" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label">User Name</label>
+                            <input asp-for="UserName" class="form-control form-control-lg" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="UserEmail" class="control-label">Email</label>
+                            <input asp-for="UserEmail" type="email" class="form-control form-control-lg" />
+                            <span asp-validation-for="UserEmail" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" type="password" class="form-control form-control-lg" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group buttoms">
+                        <input type="submit" value="Save" class="btn btn-outline-success btn-lg" /> &nbsp;
+                        <a asp-action="Login" asp-controller="Users" class="btn btn-link btn-lg">Already Registered</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <!-- Script para mascarar inputs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".cpf").mask("999.999.999-99");
+            $(".phone").mask("(99) 9 9999-9999");
+        })
+    </script>
+}

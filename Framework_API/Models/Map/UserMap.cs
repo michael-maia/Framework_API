@@ -15,13 +15,10 @@ namespace Framework_API.Models.Map
             builder.Property(u => u.FullName).IsRequired().HasMaxLength(100);
             builder.Property(u => u.City).IsRequired();
             builder.Property(u => u.State).IsRequired();
-            builder.Property(u => u.BirthDate).IsRequired();
-            builder.Property(u => u.UserEmail).IsRequired().HasMaxLength(100);
-            builder.HasIndex(u => u.UserEmail).IsUnique();
-            builder.Property(u => u.CPF).IsRequired().HasMaxLength(11);
-            builder.HasIndex(u => u.CPF).IsUnique();
-            builder.Property(u => u.Password).IsRequired().HasMaxLength(20);
-            builder.Property(u => u.Gender).IsRequired();
+            builder.Property(u => u.BirthDate).IsRequired();             
+            builder.Property(u => u.CPF).IsRequired().HasMaxLength(20);
+            builder.HasIndex(u => u.CPF).IsUnique();                        
+            builder.Property(u => u.Phone).IsRequired().HasMaxLength(20);
 
             // Configurando para ser desconsiderado algumas configurações padrão
             builder.Ignore(i => i.EmailConfirmed);
