@@ -1,0 +1,44 @@
+﻿@model Framework_API.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "User Login";
+}
+
+<div class="border border-light rounded shadow col-md-8">
+    <div class="container">
+        <h3 class="title"><i class="fas fa-user"></i>User login</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" type="email" class="form-control form-control-lg" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control form-control-lg" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group buttoms">
+                        <input type="submit" value="Login" class="btn btn-outline-info btn-lg" /> &nbsp;
+                        <a asp-action="Register" asp-controller="Users" class="btn btn-link btn-lg">Not registered</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

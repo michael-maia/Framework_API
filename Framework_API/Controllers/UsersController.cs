@@ -2,6 +2,7 @@
 using Framework_API.Models;
 using Framework_API.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Controllers
 {
-    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -29,7 +29,6 @@ namespace Framework_API.Controllers
             return View(await _userRepository.FetchLoggedUser(User));
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             // Se o usuário já estiver logado e vai ser deslogado
@@ -42,7 +41,6 @@ namespace Framework_API.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel register)
@@ -88,9 +86,53 @@ namespace Framework_API.Controllers
                     foreach (var error in result.Errors)
                         ModelState.AddModelError("", error.Description.ToString());
                 }
-            }
+            }       
             _logger.LogError("Invalid user data");
             return View(register);
+        }
+
+        public async Task<IActionResult> Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _userRepository.Logout();               
+            }
+            _logger.LogInformation("Entering login page");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel login)
+        {
+            // Caso os dados enviados pelo usuário sejam válidos
+            if (ModelState.IsValid)
+            {
+                _logger.LogInformation("Fetching user by email");
+                var user = await _userRepository.FetchUserByEmail(login.Email);
+                PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+
+                if (user != null)
+                {
+                    _logger.LogInformation("Checking user data");
+
+                    // Comparando a senha do usuário com a que foi enviada na tela de login
+                    if (passwordHasher.VerifyHashedPassword(user, user.PasswordHash, login.Password) != PasswordVerificationResult.Failed)
+                    {
+                        _logger.LogInformation("Correct data. Logging user");
+                        await _userRepository.Login(user, false);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    _logger.LogError("Invalid data");
+                    ModelState.AddModelError("", "Invalid password and/or email");
+                }
+
+                _logger.LogError("Invalid data");
+                ModelState.AddModelError("", "Invalid password and/or email");
+            }
+            return View(login);
         }
     }
 }
