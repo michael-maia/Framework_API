@@ -1,0 +1,100 @@
+﻿@model Framework_API.Models.User
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="data">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="title">
+                <i class="fas fa-address-card fa-lg"></i> &nbsp; My Data &nbsp;
+                <a asp-action="Update" asp-controller="Users" asp-route-UserId="@Model.Id" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="right" title="Update data"><i class="far fa-edit fa-lg"></i></a>
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature fa-lg"></i></span>
+                </div>
+                <input asp-for="FullName" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-address-card fa-lg"></i></span>
+                </div>
+                <input asp-for="CPF" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-phone-square fa-lg"></i></span>
+                </div>
+                <input asp-for="Phone" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-envelope fa-lg"></i></span>
+                </div>
+                <input asp-for="Email" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-envelope fa-lg"></i></span>
+                </div>
+                <input asp-for="City" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-envelope fa-lg"></i></span>
+                </div>
+                <input asp-for="State" type="text" class="form-control form-control-lg" readonly />
+            </div>
+            <div class="input-group col-8 fields">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-envelope fa-lg"></i></span>
+                </div>
+                <input asp-for="BirthDate" type="text" class="form-control form-control-lg" readonly />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="books">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="title">
+                <i class="fas fa-envelope fa-lg"></i> &nbsp; My rented Books &nbsp;
+            </h3>
+        </div>
+        <div class="card-body">
+            @*await Component.InvokeAsync("RentedBooks")*@
+        </div>
+
+    </div>
+</div>
+
+<partial name="_ModalRemove" />
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+        function ConfirmRemove(id, name, controller) {
+            $(".Name").html(name);
+            $(".modal").modal("show");
+            $(".btnRemove").on('click', function () {
+                var url = "/" + controller + "/Delete/";
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: { id: id },
+                    success: function () {
+                        alert("Register removed");
+                        location.reload();
+                    }
+                })
+            })
+        }
+    </script>
+}

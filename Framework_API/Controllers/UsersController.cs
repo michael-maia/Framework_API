@@ -26,6 +26,8 @@ namespace Framework_API.Controllers
         public async Task<IActionResult> Index()
         {
             _logger.LogInformation("Listing data");
+
+            // Utiliza uma propriedade da classe ClaimsPrincipal como parametro
             return View(await _userRepository.FetchLoggedUser(User));
         }
 
@@ -47,6 +49,7 @@ namespace Framework_API.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Criando um objeto da classe User para utiliza-lo como parametro na função SaveUser()
                 var user = new User
                 {
                     UserName = register.UserName,
@@ -67,6 +70,7 @@ namespace Framework_API.Controllers
                 {
                     _logger.LogInformation("New user created");
                     _logger.LogInformation("Assigning role to new user");
+
                     // Este nível de acesso deve estar criado caso contrário vai dar erro                    
                     var role = "Administrator";
 
@@ -110,6 +114,8 @@ namespace Framework_API.Controllers
             {
                 _logger.LogInformation("Fetching user by email");
                 var user = await _userRepository.FetchUserByEmail(login.Email);
+
+                // Instanciando objeto da classe PasswordHasher para usar suas funções
                 PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
 
                 if (user != null)
@@ -122,7 +128,7 @@ namespace Framework_API.Controllers
                         _logger.LogInformation("Correct data. Logging user");
                         await _userRepository.Login(user, false);
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Users");
                     }
 
                     _logger.LogError("Invalid data");
@@ -133,6 +139,13 @@ namespace Framework_API.Controllers
                 ModelState.AddModelError("", "Invalid password and/or email");
             }
             return View(login);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _userRepository.Logout();
+
+            return RedirectToAction("Login", "Users");
         }
     }
 }
