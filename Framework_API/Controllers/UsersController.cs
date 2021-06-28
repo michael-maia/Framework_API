@@ -145,5 +145,52 @@ namespace Framework_API.Controllers
 
             return RedirectToAction("Login", "Users");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string userId)
+        {
+            _logger.LogInformation("Checking if user exists");
+
+            // Pega as informações do usuário baseado no ID e retorna na View
+            var user = await _userRepository.FetchById(userId);
+            var updateViewModel = new UpdateViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                BirthDate = user.BirthDate,
+                Email = user.Email,
+                CPF = user.CPF,
+                Phone = user.Phone,
+                FullName = user.FullName                
+            };
+            _logger.LogInformation("Update user");
+            return View(updateViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(UpdateViewModel updateViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userRepository.FetchById(updateViewModel.Id);
+
+                // Atualiza as informações do usuário baseado no objeto da classe UpdateViewModel criado anteriormente no método GET do Update
+                user.FullName = updateViewModel.FullName;
+                user.CPF = updateViewModel.CPF;
+                user.UserName = updateViewModel.UserName;
+                user.Email = updateViewModel.Email;
+                user.Phone = updateViewModel.Phone;
+                user.BirthDate = updateViewModel.BirthDate;
+
+                await _userRepository.UpdateUser(user);
+                _logger.LogInformation("Updating user");
+
+                return RedirectToAction("Index", "Users");
+            }
+            _logger.LogError("Invalid information");
+
+            return View(updateViewModel);
+        }
     }
 }

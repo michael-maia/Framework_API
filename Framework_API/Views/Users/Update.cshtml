@@ -1,0 +1,79 @@
+﻿@model Framework_API.ViewModels.UpdateViewModel
+@{
+    ViewData["Title"] = "Update user " + Model.UserName;
+}
+
+<div class="border border-light rounded shadow col-md-8">
+    <div class="container">
+        <h3 class="title"><i class="fas fa-user"></i>Update user @Model.UserName</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="Update">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" />
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control form-control-lg" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="BirthDate" class="control-label">Birth Date</label>
+                            <input asp-for="BirthDate" type="date" class="form-control form-control-lg" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control form-control-lg cpf" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control form-control-lg phone" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label">User Name</label>
+                            <input asp-for="UserName" class="form-control form-control-lg" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" type="email" class="form-control form-control-lg" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group buttoms">
+                        <input type="submit" value="Update" class="btn btn-outline-info btn-lg" /> &nbsp;
+                        <a asp-action="Index" asp-controller="Users" class="btn btn-link btn-lg">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".cpf").mask("999.999.999-99");
+            $(".phone").mask("(99) 9 9999-9999");
+        })
+    </script>
+}
