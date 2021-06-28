@@ -13,8 +13,6 @@ namespace Framework_API.Models.Map
         {
             // Definindo as configurações das propriedades para o banco de dados            
             builder.Property(u => u.FullName).IsRequired().HasMaxLength(100);
-            builder.Property(u => u.City).IsRequired();
-            builder.Property(u => u.State).IsRequired();
             builder.Property(u => u.BirthDate).IsRequired();             
             builder.Property(u => u.CPF).IsRequired().HasMaxLength(20);
             builder.HasIndex(u => u.CPF).IsUnique();                        

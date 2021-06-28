@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Framework_API.Models.Address>
+
+@{
+    var controller = "Addresses";
+}
+
+<h1>Default</h1>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.District)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CEP)
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CEP)
+            </td>            
+            <td>
+                <a asp-action="Edit" asp-controller="Addresses" asp-route-id="@item.AddressId" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Update address"><i class="far fa-edit"></i></a> &nbsp;
+                <a class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Remove address" onclick="ConfirmRemove(@item.AddressId, '@item.Street', '@controller')"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20210620204918_UpdateUserModel.Designer.cs" />
     <Compile Remove="Migrations\20210620220321_RemovedUserEmailProperty.cs" />
     <Compile Remove="Migrations\20210620220321_RemovedUserEmailProperty.Designer.cs" />
+    <Compile Remove="Migrations\20210628004707_Model-Address.cs" />
+    <Compile Remove="Migrations\20210628004707_Model-Address.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,6 +16,7 @@ namespace Framework_API.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Rent> Rents { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public DBContext(DbContextOptions<DBContext> options) : base(options){}
 
@@ -29,6 +30,7 @@ namespace Framework_API.Data
             builder.ApplyConfiguration(new BookMap());
             builder.ApplyConfiguration(new RentMap());
             builder.ApplyConfiguration(new RoleMap());
+            builder.ApplyConfiguration(new AddressMap());
         }
     }
 }

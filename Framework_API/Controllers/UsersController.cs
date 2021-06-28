@@ -52,9 +52,7 @@ namespace Framework_API.Controllers
                 // Criando um objeto da classe User para utiliza-lo como parametro na função SaveUser()
                 var user = new User
                 {
-                    UserName = register.UserName,
-                    City = register.City,
-                    State = register.State,
+                    UserName = register.UserName,                    
                     BirthDate = register.BirthDate,
                     Email = register.UserEmail,
                     CPF = register.CPF,

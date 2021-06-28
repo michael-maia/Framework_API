@@ -1,0 +1,84 @@
+﻿@model Framework_API.Models.Address
+
+@{
+    ViewData["Title"] = "New Address";
+}
+
+<div class="border border-light rounded shadow col-md-8">
+    <div class="container">
+        <h3 class="title"><i class="fas fa-home fa-lg"></i>New Address</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Street" class="control-label"></label>
+                            <input asp-for="Street" class="form-control form-control-lg" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="Number" class="control-label"></label>
+                            <textarea asp-for="Number" class="form-control form-control-lg"></textarea>
+                            <span asp-validation-for="Number" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="District" class="control-label"></label>
+                            <input asp-for="District" class="form-control form-control-lg" />
+                            <span asp-validation-for="District" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control form-control-lg" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="State" class="control-label"></label>
+                            <input asp-for="State" class="form-control form-control-lg" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="CEP" class="control-label"></label>
+                            <input asp-for="CEP" class="form-control form-control-lg cep" />
+                            <span asp-validation-for="CEP" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <input asp-for="UserId" type="hidden" />
+
+                    <div class="form-group buttoms">
+                        <input type="submit" value="Save" class="btn btn-outline-success btn-lg" /> &nbsp;
+                        <a asp-action="Index" asp-controller="Users" class="btn btn-link btn-lg">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <!-- Script para mascarar inputs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".cep").mask("99999-999");            
+        })
+    </script>
+}
