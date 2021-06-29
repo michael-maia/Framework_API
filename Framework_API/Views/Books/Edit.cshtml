@@ -1,0 +1,99 @@
+﻿@model Framework_API.Models.Book
+
+@{
+    ViewData["Title"] = "Update book " + Model.Title;
+}
+
+<div class="border border-light rounded shadow col-md-8">
+    <div class="container">
+        <h3 class="title"><i class="fas fa-car fa-lg"></i>Update book @Model.Title</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BookId" />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label"></label>
+                                    <input asp-for="Title" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="AuthorFullName" class="control-label">Author - Full Name</label>
+                                    <input asp-for="AuthorFullName" class="form-control form-control-lg" />
+                                    <span asp-validation-for="AuthorFullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="Edition" class="control-label"></label>
+                                    <input asp-for="Edition" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Edition" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="Year" class="control-label"></label>
+                                    <input asp-for="Year" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Year" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="NumberOfPages" class="control-label"></label>
+                                    <input asp-for="NumberOfPages" class="form-control form-control-lg" />
+                                    <span asp-validation-for="NumberOfPages" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group fields">
+                                @if (Model.Photo != null)
+                                {
+                                    <img src="@Url.Content(Model.Photo)" name="file" id="file" height="300" width="300" class="border border-secondary rounded" />
+                                }
+                                else
+                                {
+                                    <img src="#" name="file" id="file" height="300" width="300" class="border border-secondary rounded" />
+                                }
+                            </div>
+                            <div class="fields">
+                                <div class="form-group">
+                                    <label asp-for="Photo" class="control-label"></label>
+                                    <input asp-for="Photo" type="file" class="form-control-file form-control-lg" name="image" id="image" onchange="LoadImage(this)" />
+                                    <span asp-validation-for="Photo" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group buttoms">
+                        <input type="submit" value="Update" class="btn btn-outline-info btn-lg" /> &nbsp;
+                        <a asp-action="Index" class="btn btn-link btn-lg">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function LoadImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#image").attr('src', e.target.result).width(300).height(300);
+                }
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    </script>
+}

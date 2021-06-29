@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Framework_API.Models.Book>
+
+@{
+    ViewData["Title"] = "Registered books";
+
+    var controller = "Books";
+}
+
+<h3 class="title">
+    <i class="fas fa-car fa-lg"></i> Registered Books &nbsp;
+    <a asp-action="Insert" asp-controller="Books" class="btn btn-outline-secondary btn-lg" data-toggle="tooltip" data-placement="right" title="New book">
+        <i class="fas fa-plus-circle"></i>
+    </a>
+</h3>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="cards">
+                <div class="card">
+                    <img src="@Url.Content(item.Photo)" class="card-img-top img-fluid" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.AuthorFullName - @item.Title</h5>
+                    </div>
+                    <div class="card-footer">
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Edit" asp-controller="Books" asp-route-id="@item.BookId" class="btn btn-outline-info">Update</a>
+                            <a onclick="ConfirmRemove(@item.BookId, '@item.Title', '@controller')" class="btn btn-outline-danger">Remove</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Rent" asp-controller="Rents" asp-route-BookId="@item.BookId" class="btn btn-outline-info btn-block">Rent book</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<partial name="_ModalRemove" />
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+        function ConfirmRemove(id, name, controller) {
+            $(".Name").html(name);
+            $(".modal").modal("show");
+            $(".btnRemove").on('click', function () {
+                var url = "/" + controller + "/Delete/";
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: { id: id },
+                    success: function () {
+                        alert("Register removed");
+                        location.reload();
+                    }
+                })
+            })
+        }
+    </script>
+}
