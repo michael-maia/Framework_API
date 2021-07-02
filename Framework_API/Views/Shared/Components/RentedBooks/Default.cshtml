@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Framework_API.Models.Rent>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="cards">
+                <div class="card">
+                    <img src="@Url.Content(item.Book.Photo)" class="card-img-top img-fluid" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Book.AuthorFullName - @item.Book.Title</h5>
+                        <h5>@item.StartDate - @item.EndDate</h5>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -63,6 +63,7 @@ namespace Framework_API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IRentRepository, RentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

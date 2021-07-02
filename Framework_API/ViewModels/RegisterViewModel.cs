@@ -10,13 +10,7 @@ namespace Framework_API.ViewModels
     {
         [Required(ErrorMessage = "This field can't be empty")]
         [StringLength(100, ErrorMessage = "This field can't pass 100 chars")]
-        public string FullName { get; set; }
-
-        [Required(ErrorMessage = "This field can't be empty")]
-        public string City { get; set; }
-
-        [Required(ErrorMessage = "This field can't be empty")]
-        public string State { get; set; }
+        public string FullName { get; set; }        
 
         [Required(ErrorMessage = "This field can't be empty")]
         [DataType(DataType.Date)]

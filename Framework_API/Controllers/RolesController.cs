@@ -28,25 +28,7 @@ namespace Framework_API.Controllers
         {
             _logger.LogInformation("Listing all registers");
             return View(await _roleRepository.FetchAll().ToListAsync());
-        }
-
-        // GET: Roles/Details/5
-        /*public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var role = await _context.RolesTable
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (role == null)
-            {
-                return NotFound();
-            }
-
-            return View(role);
-        }*/
+        }                
 
         // GET: Roles/Create
         public IActionResult Create()
@@ -120,25 +102,7 @@ namespace Framework_API.Controllers
             }
             _logger.LogError("Invalid data");
             return View(role);
-        }
-
-        // GET: Roles/Delete/5
-        /*public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var role = await _context.RolesTable
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (role == null)
-            {
-                return NotFound();
-            }
-
-            return View(role);
-        }*/
+        }        
 
         // POST: Roles/Delete/5
         [HttpPost]

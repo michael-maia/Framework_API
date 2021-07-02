@@ -70,7 +70,7 @@ namespace Framework_API.Controllers
                     _logger.LogInformation("Assigning role to new user");
 
                     // Este nível de acesso deve estar criado caso contrário vai dar erro                    
-                    var role = "Administrator";
+                    var role = "Client";
 
                     await _userRepository.AssignRole(user, role);
                     _logger.LogInformation("Assignment completed");
