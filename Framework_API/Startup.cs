@@ -2,6 +2,7 @@ using Framework_API.Data;
 using Framework_API.DataSource.Interface;
 using Framework_API.DataSource.Repository;
 using Framework_API.Models;
+using Framework_API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -64,6 +65,9 @@ namespace Framework_API
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IRentRepository, RentRepository>();
+
+            services.Configure<EmailConfiguration>(Configuration.GetSection("EmailConfiguration"));
+            services.AddScoped<IEmail, Email>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,7 +78,7 @@ namespace Framework_API
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-            
+            app.UseStatusCodePagesWithReExecute("/Errors/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -1,5 +1,6 @@
 ﻿using Framework_API.DataSource.Interface;
 using Framework_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Controllers
 {
+    [Authorize]
     public class AddressesController : Controller
     {       
         private readonly IUserRepository _userRepository;

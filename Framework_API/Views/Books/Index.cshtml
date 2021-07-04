@@ -8,9 +8,10 @@
 
 <h3 class="title">
     <i class="fas fa-car fa-lg"></i> Registered Books &nbsp;
-    <a asp-action="Insert" asp-controller="Books" class="btn btn-outline-secondary btn-lg" data-toggle="tooltip" data-placement="right" title="New book">
-        <i class="fas fa-plus-circle"></i>
-    </a>
+    @if (User.IsInRole("Administrator")) 
+    {
+        <a asp-action="Insert" asp-controller="Books" class="btn btn-outline-secondary btn-lg" data-toggle="tooltip" data-placement="right" title="New book"><i class="fas fa-plus-circle"></i></a>
+    }            
 </h3>
 
 <div class="row">

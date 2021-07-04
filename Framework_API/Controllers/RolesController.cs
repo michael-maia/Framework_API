@@ -9,9 +9,11 @@ using Framework_API.Data;
 using Framework_API.Models;
 using Framework_API.DataSource.Interface;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Framework_API.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly IRoleRepository _roleRepository;

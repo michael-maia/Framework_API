@@ -1,6 +1,8 @@
 ﻿using Framework_API.DataSource.Interface;
 using Framework_API.Models;
+using Framework_API.Services;
 using Framework_API.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,18 +12,18 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Controllers
 {
+    [Authorize]
     public class RentsController : Controller
     {
-        private readonly IUserRepository _userRepository;
-        //private readonly IAccoun _contaRepositorio;
+        private readonly IUserRepository _userRepository;        
         private readonly IRentRepository _rentRepository;
         private readonly ILogger<RentsController> _logger;
         //private readonly IEmail _email;
 
+        //public RentsController(IUserRepository userRepository, IRentRepository rentRepository, ILogger<RentsController> logger, IEmail email)
         public RentsController(IUserRepository userRepository, IRentRepository rentRepository, ILogger<RentsController> logger)
         {
-            _userRepository = userRepository;
-            //_contaRepositorio = contaRepositorio;
+            _userRepository = userRepository;            
             _rentRepository = rentRepository;
             _logger = logger;
             //_email = email;
@@ -45,8 +47,7 @@ namespace Framework_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userRepository.FetchLoggedUser(User);
-                //var saldo = _contaRepositorio.PegarSaldoPeloId(usuario.Id);
+                var user = await _userRepository.FetchLoggedUser(User);                
 
                 if (await _rentRepository.CheckReservation(user.Id, rent.BookId, rent.StartDate, rent.EndDate))
                 {
@@ -64,16 +65,16 @@ namespace Framework_API.Controllers
                         EndDate = rent.EndDate                       
                     };
 
-                    //_logger.LogInformation("Enviando email com detalhes da reserva");
-                    //string assunto = "Reserva concluída com sucesso";
+                    /*_logger.LogInformation("Sending email with reserve details");
+                    string subject = "Reservation completed with success";
 
                     string message = string.Format("Your book is ready. You can take it on {0}" +
                         " and return it on day {1}. Enjoy it!!! ", rent.StartDate, rent.EndDate);
 
-                    //await _email.EnviarEmail(usuario.Email, assunto, mensagem);
+                    await _email.SendEmail(user.Email, subject, message);*/
 
                     await _rentRepository.Insert(r);
-                    _logger.LogInformation("Reserva feita");          
+                    _logger.LogInformation("Reservation completed");          
                     return RedirectToAction("Index", "Books");
                 }
             }

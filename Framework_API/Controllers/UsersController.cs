@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Framework_API.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -31,6 +32,7 @@ namespace Framework_API.Controllers
             return View(await _userRepository.FetchLoggedUser(User));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             // Se o usuário já estiver logado e vai ser deslogado
@@ -43,6 +45,7 @@ namespace Framework_API.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel register)
@@ -93,6 +96,7 @@ namespace Framework_API.Controllers
             return View(register);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -103,6 +107,7 @@ namespace Framework_API.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel login)
