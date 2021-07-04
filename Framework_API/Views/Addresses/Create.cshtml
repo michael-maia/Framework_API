@@ -12,15 +12,20 @@
             <div class="col-md-8">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                    <div class="fields">
+                        <div class="form-group">
+                            <label asp-for="CEP" class="control-label"></label>
+                            <input asp-for="CEP" type="text" class="form-control form-control-lg" name="cep" id="cep" maxlength="9" onblur="pesquisacep(this.value);" />
+                            <span asp-validation-for="CEP" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="fields">
                         <div class="form-group">
                             <label asp-for="Street" class="control-label"></label>
-                            <input asp-for="Street" class="form-control form-control-lg" />
+                            <input asp-for="Street" type="text" class="form-control form-control-lg" name="rua" id="rua" />
                             <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                     </div>
-
                     <div class="fields">
                         <div class="form-group">
                             <label asp-for="Number" class="control-label"></label>
@@ -28,34 +33,25 @@
                             <span asp-validation-for="Number" class="text-danger"></span>
                         </div>
                     </div>
-
                     <div class="fields">
                         <div class="form-group">
                             <label asp-for="District" class="control-label"></label>
-                            <input asp-for="District" class="form-control form-control-lg" />
+                            <input asp-for="District" type="text" class="form-control form-control-lg" name="bairro" id="bairro" />
                             <span asp-validation-for="District" class="text-danger"></span>
                         </div>
                     </div>
-
                     <div class="fields">
                         <div class="form-group">
                             <label asp-for="City" class="control-label"></label>
-                            <input asp-for="City" class="form-control form-control-lg" />
+                            <input asp-for="City" type="text" class="form-control form-control-lg" name="cidade" id="cidade" />
                             <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="fields">
                         <div class="form-group">
                             <label asp-for="State" class="control-label"></label>
-                            <input asp-for="State" class="form-control form-control-lg" />
+                            <input asp-for="State" type="text" class="form-control form-control-lg" name="uf" id="uf" />
                             <span asp-validation-for="State" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="fields">
-                        <div class="form-group">
-                            <label asp-for="CEP" class="control-label"></label>
-                            <input asp-for="CEP" class="form-control form-control-lg cep" />
-                            <span asp-validation-for="CEP" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -73,12 +69,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <!-- Script para mascarar inputs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-
-    <script>
-        $(function () {
-            $(".cep").mask("99999-999");            
-        })
-    </script>
+    <!--<script type="text/javascript" src="~/js/viaCEP.js"></script>-->
 }
